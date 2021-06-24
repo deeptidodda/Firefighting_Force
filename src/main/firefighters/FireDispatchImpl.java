@@ -38,8 +38,7 @@ public class FireDispatchImpl implements FireDispatch {
     @Override
     public void dispatchFirefighers(CityNode... burningBuildings) throws NoFireFoundException {
 
-        // Sort buildings by the distance of x coordinate of the burning buildings from
-        // the x coordinate of the fire station
+        // Sort buildings by the distance from the firestation
         Arrays.sort(burningBuildings, (building1, building2) -> {
             int distanceBetweenFStoBuilding1 = this.distanceBetweenLocations(fireStationLocation, building1);
             int distanceBetweenFStoBuilding2 = this.distanceBetweenLocations(fireStationLocation, building2);
@@ -78,7 +77,12 @@ public class FireDispatchImpl implements FireDispatch {
         return closestFF;
     }
 
-    private int distanceBetweenLocations(CityNode location, CityNode burningBuilding) {
-        return (Math.abs(location.getX() - burningBuilding.getX()) + Math.abs(location.getY() - burningBuilding.getY()));
+    /**
+     * Sends the distance between two city coordinates.
+     * @param sourceCityNode the source city node
+     * @param destinationCityNode the destination city node
+     */
+    private int distanceBetweenLocations(CityNode sourceCityNode, CityNode destinationCityNode) {
+        return (Math.abs(sourceCityNode.getX() - destinationCityNode.getX()) + Math.abs(sourceCityNode.getY() - destinationCityNode.getY()));
     }
 }
